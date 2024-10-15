@@ -1,0 +1,34 @@
+.tear-card{
+    background-color: rgb(17, 17, 17);
+    height: 70%;
+    min-width: 300px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.headline{
+    margin-top: 5px;
+    margin-bottom: -20px;
+}
+
+.buy-btn{
+    height: 40px !important;
+    background-color: rgb(29, 38, 63);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.buy-btn:hover{
+    background-color: #444a92;
+    font-size: 18px;
+}
+

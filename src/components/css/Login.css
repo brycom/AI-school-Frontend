@@ -1,0 +1,33 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-input{
+    background-color: #292929;
+    margin-bottom:15px ;
+    height: 25px;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+#submit-btn{
+    height: 40px !important;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+#submit-btn:hover{
+    background-color: #303250;
+    font-size: 18px;
+}
+.headline{
+    font-size: x-large;
+    font-weight: 300;
+}
