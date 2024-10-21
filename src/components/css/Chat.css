@@ -1,0 +1,87 @@
+.chat-wrapper{
+    display: flex;
+    flex-direction: row;
+    height: 1000px;
+    align-items: center;
+}
+
+.questions{
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    margin-right: 20px ;
+}
+
+.chat-window{
+
+    
+}
+
+#chat-window-wrapper{
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(24, 23, 23);
+    height: 80%;
+    min-width: 600px;
+    max-width: 800px;
+}
+.chat-window ul{
+    display: flex;
+    flex-direction: column;
+    height: 87%;
+    overflow-y:scroll;
+    padding: 30px;
+    margin: 5px;
+    list-style: none;
+}
+
+.chat-window form{
+    justify-content: center;
+    align-items: center;
+
+}
+.chat-window input{
+    margin-top: 0;
+    margin-bottom: 10px;
+    background-color: rgb(53, 52, 52);
+    border: none;
+    border-radius: 5px;
+    min-height: 30px;
+    width: 80%;
+
+}
+
+.chat-window button{
+    margin-left: 3px;
+    margin-bottom: 10px;
+    width: 80px;
+    min-height: 30px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+    border-radius: 10px;
+    background-color: rgb(48, 49, 49);
+}
+.gpt{
+    align-self: flex-start;
+    color: aqua;
+    position: sticky-left;
+    width: 60%;
+    background-color: rgba(240, 248, 255, 0.055);
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.me{
+    align-self: flex-end;
+    color: white;
+    margin-right: 0;
+    width: 60%;
+    background-color: rgba(240, 248, 255, 0.055);
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
