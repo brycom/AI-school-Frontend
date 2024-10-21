@@ -3,7 +3,16 @@ import { SetStateAction, useEffect, useState} from 'react'
 interface Props{
     question:string;
     setQuestion:React.Dispatch<React.SetStateAction<string>>;
+    subjekt:Subjekt;
 
+}
+
+interface Subjekt{
+    id: string;
+    topic: string;
+    title: string;
+    description: string;
+    level: number;
 }
 
 interface Message{
@@ -31,9 +40,9 @@ export default function ChatWindow(props: Props) {
                     "description": "Du är en passionerad lärare som brinner för programmering"
                 }, 
                 topic: {
-                    "topic": "programering",
-                    "description": "fårga hur man skriver en forloop i java",
-                    "level": 1
+                    "topic": props.subjekt.title,
+                    "description": props.subjekt.description,
+                    "level": props.subjekt.level
                 }
             })
         })
@@ -49,11 +58,6 @@ export default function ChatWindow(props: Props) {
             console.error("Error fetching data:", error);
         });
     }, []);
-
-    useEffect(() => {
-
-        
-    }, [chat.length]);
     
     
     function sendAnswer(answer:string){
