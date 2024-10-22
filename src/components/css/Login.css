@@ -14,20 +14,26 @@
 }
 
 #submit-btn{
+    padding-top: 0;
     height: 40px !important;
     background-color: black;
     color: white;
+    font-size: 20px;
+    font-weight: 350;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    align-content: center;
+    justify-content: center;
 }
 
 #submit-btn:hover{
     background-color: #303250;
-    font-size: 18px;
+    font-size: 24px;
 }
 .headline{
+    margin-bottom: 10px;
     font-size: x-large;
     font-weight: 300;
 }

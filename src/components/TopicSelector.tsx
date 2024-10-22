@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./css/TopicSelector.css"
+import { Link } from 'react-router-dom';
 
 interface Topic{
     topic: string;
@@ -16,7 +17,7 @@ interface Subjekt{
 
 interface Props{
     subjekt: Subjekt| undefined;
-    setSubjekt: React.Dispatch<React.SetStateAction<Subjekt| undefined>>;
+    setSubjekt: React.Dispatch<React.SetStateAction<Subjekt>>;
 }
 
 export default function TopicSelector(props: Props) {
@@ -59,11 +60,12 @@ export default function TopicSelector(props: Props) {
             <ul className='topic-wrapper' key={index}>
                 
                 {topic.subjekts.map((subj, subIndex) => (
+                  <Link to={"/chat"}>
                     <li className='topic-tile' key={subIndex} onClick={()=>props.setSubjekt(subj)}>
                         <h4 className='tile-headline'>{subj.title}</h4>
                        {/*  <p className='description'>{subj.description}</p> */}
                         <p className='level'>Svårighetsgrad: {subj.level} av 10</p>
-                    </li>))}
+                    </li></Link>))}
 
             </ul>
             </div>

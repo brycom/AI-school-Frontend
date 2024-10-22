@@ -1,7 +1,7 @@
 .topic-wrapper{
     display: flex;
     flex-direction: row;
-    height: 280px;
+    height: 180px;
     width: 100vw;
     overflow-x: scroll;
     padding: 10px;
@@ -27,14 +27,15 @@
 }
 .tile-headline{
     height: 25px;
+    margin-bottom: 30px;
 }
 
 
-.description{
+/* .description{
     height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 .level{
     margin-bottom: 10px;
 }
