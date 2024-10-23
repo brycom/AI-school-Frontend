@@ -1,34 +1,42 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Start from './components/Start'
+import TearSelector from './components/TearSelector'
+import Chat from './components/Chat'
+import TopicSelector from './components/TopicSelector'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import CreateAccount from './components/CreateAccount'
+import Login from './components/Login'
+
+
+interface Subjekt{
+  id: string;
+  topic: string;
+  title: string;
+  description: string;
+  level: number;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+    <BrowserRouter>
+    <Routes>
+      <Route path="*" element={<Start></Start>} />
+      <Route path="/tear-selector" element={<TearSelector></TearSelector>} />
+      <Route path="/chat" element={/* logedIn && */<Chat subjekt={subjekt} setSubjekt={setSubjekt}></Chat>} />
+      <Route path="/topic-selector" element={/* logedIn && */<TopicSelector subjekt={subjekt} setSubjekt={setSubjekt}></TopicSelector>} />
+      <Route path="/signup" element={<CreateAccount />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+    
+    
+    </BrowserRouter>
+
+ 
   )
 }
 

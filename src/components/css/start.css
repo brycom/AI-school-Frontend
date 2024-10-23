@@ -1,0 +1,34 @@
+.start-wraper{
+    display: flex;
+    flex-direction: column;
+    background-color:rgba(89, 88, 88, 1) ;
+    padding-bottom: 50px;
+    padding-left: 120px;
+    padding-right: 120px;
+    border-radius: 20px;
+
+
+}
+.inner-wraper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.start-button{
+ background-color: rgba(44, 44, 44, 1);
+ margin: 10px;
+ font-weight: 400;
+ border: none;
+ transition: 0.2s ease-in-out;
+}
+
+.start-button:hover{
+    background-color: rgb(36, 34, 34);
+    color: white;
+    box-shadow: 2px 2px 5px rgb(36, 34, 34);
+
+}
+
+.headline{
+    font-weight: 100;
+}
