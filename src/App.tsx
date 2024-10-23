@@ -1,6 +1,4 @@
-import { SetStateAction, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
 import './App.css'
 import Start from './components/Start'
 import TearSelector from './components/TearSelector'
@@ -21,7 +19,6 @@ interface Subjekt{
 
 function App() {
   const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
-  const [logedIn, setLogedIn] = useState<boolean>(false);
 
 
   return (

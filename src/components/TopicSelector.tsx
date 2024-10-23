@@ -24,8 +24,12 @@ export default function TopicSelector(props: Props) {
     const [topics, setTopics] = useState<Topic[]>([]);
 
 
+
     useEffect(() => {
-        fetch("http://localhost:8080/admin/topic/allTopics")
+        fetch("http://localhost:8080/topic/allTopics",{
+              method: 'GET',
+    credentials: 'include'
+        })
           .then(response => response.json())
           .then(data => {
             const updatedTopics: Topic[] = [];
@@ -50,7 +54,8 @@ export default function TopicSelector(props: Props) {
             console.log("Updated topics:", updatedTopics);
           })
           .catch(error => console.error('Error:', error));
-      }, []);
+
+        }, []);
       
   return (
     <div>

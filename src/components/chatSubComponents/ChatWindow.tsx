@@ -31,6 +31,7 @@ export default function ChatWindow(props: Props) {
     useEffect(() => {
         fetch("http://localhost:8080/chat/question", {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
