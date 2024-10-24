@@ -1,4 +1,5 @@
 import { SetStateAction, useEffect, useState} from 'react'
+import { json } from 'react-router-dom';
 
 interface Props{
     question:string;
@@ -20,15 +21,23 @@ interface Message{
     from: string;
 }
 
+interface Content{
+    correct: boolean;
+    feedback: string;
+}
+
 
 
 export default function ChatWindow(props: Props) {
     const [answer, setAnswer] = useState<string>("");
     const[chat, setChat] = useState<Message[]>([]);
+    const [newQuestion, setNewQuestion] = useState<boolean>(false);
     
     
     
     useEffect(() => {
+        console.log(props.subjekt.description);
+        
         fetch("http://localhost:8080/chat/question", {
             method: 'POST',
             credentials: 'include',
@@ -41,6 +50,7 @@ export default function ChatWindow(props: Props) {
                     "description": "Du är en passionerad lärare som brinner för programmering"
                 }, 
                 topic: {
+                    "id":props.subjekt.id,
                     "topic": props.subjekt.title,
                     "description": props.subjekt.description,
                     "level": props.subjekt.level
@@ -58,7 +68,8 @@ export default function ChatWindow(props: Props) {
         .catch((error) => {
             console.error("Error fetching data:", error);
         });
-    }, []);
+    }, [newQuestion]);
+
     
     
     function sendAnswer(answer:string){
@@ -66,6 +77,7 @@ export default function ChatWindow(props: Props) {
 
          fetch("http://localhost:8080/chat/answer", {
              method: 'POST',
+             credentials: 'include',
              headers: {
                  'Content-Type': 'application/json'
              },
@@ -82,8 +94,19 @@ export default function ChatWindow(props: Props) {
              return res.json();
          })
         .then((data) => {
-            const message:Message = {from:"gpt",content:data.content}
+           let content:Content = JSON.parse(data.content);
+           console.log(content);
+           if(content.correct == true && newQuestion == false) {
+             setNewQuestion(true);
+           }else if(content.correct == true && newQuestion == true){
+            setNewQuestion(false);
+           }
+           
+            
+            const message:Message = {from:"gpt",content:content.feedback}
             setChat(prevChat => [...prevChat, message])
+            console.log(data.content.feedback);
+            
          })
         .catch((error) => {
              console.error("Error fetching data:", error);
