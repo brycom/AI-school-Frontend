@@ -33,7 +33,7 @@ export default function Chat(props: Props) {
     <Link to={"/topic-selector"}>
     <button>Nytt ämne</button>
     </Link>
-    <QuestionList></QuestionList>
+    <QuestionList subjekt={props.subjekt} ></QuestionList>
     <ChatWindow question={question} setQuestion={setQuestion} subjekt={props.subjekt}></ChatWindow>
    </div>
   )

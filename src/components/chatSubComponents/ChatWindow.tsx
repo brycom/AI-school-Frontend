@@ -36,7 +36,6 @@ export default function ChatWindow(props: Props) {
     
     
     useEffect(() => {
-        console.log(props.subjekt.description);
         
         fetch("http://localhost:8080/chat/question", {
             method: 'POST',
