@@ -3,6 +3,7 @@ import ChatWindow from './chatSubComponents/ChatWindow'
 import QuestionList from './chatSubComponents/QuestionList'
 import "./css/Chat.css"
 import { Link } from 'react-router-dom';
+import { Client } from '@stomp/stompjs';
 
 interface Teacher{
   name: string;
@@ -23,6 +24,7 @@ interface Props{
   setSubjekt: React.Dispatch<React.SetStateAction<Subjekt>>;
   teacher: Teacher| undefined;
   setTeacher: React.Dispatch<React.SetStateAction<Teacher>>;
+  stompClient:Client| null;
 }
 
 export default function Chat(props: Props) {
@@ -36,7 +38,7 @@ export default function Chat(props: Props) {
     <button>Nytt ämne</button>
     </Link>
     <QuestionList subjekt={props.subjekt} ></QuestionList>
-    <ChatWindow teacher={props.teacher} question={question} setQuestion={setQuestion} subjekt={props.subjekt}></ChatWindow>
+    <ChatWindow teacher={props.teacher} question={question} setQuestion={setQuestion} subjekt={props.subjekt} stompClient={props.stompClient}></ChatWindow>
    </div>
   )
 }

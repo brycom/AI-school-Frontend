@@ -1,3 +1,4 @@
+import { Client } from '@stomp/stompjs';
 import { SetStateAction, useEffect, useState} from 'react'
 
 interface Props{
@@ -5,6 +6,7 @@ interface Props{
     setQuestion:React.Dispatch<React.SetStateAction<string>>;
     subjekt:Subjekt;
     teacher:Teacher|undefined;
+    stompClient:Client| null;
 
 }
 
@@ -39,12 +41,11 @@ export default function ChatWindow(props: Props) {
     const [answer, setAnswer] = useState<string>("");
     const[chat, setChat] = useState<Message[]>([]);
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
+    const [response, setResponse] = useState<any>(null);
     
     
     
     useEffect(() => {
-
-        console.log(props.teacher?.name);
         
         
         fetch("http://localhost:8080/chat/question", {
@@ -67,18 +68,46 @@ export default function ChatWindow(props: Props) {
             })
         })
         .then((res) => {
-            return res.json();
+           /*  return res.json(); */
         })
         .then((data) => {
-            props.setQuestion(data.content)
+            /* console.log(data); */
+/*             props.setQuestion(data.content)
             const message:Message = {from:"gpt",content:data.content}
-            setChat(prevChat => [...prevChat, message])
+            setChat(prevChat => [...prevChat, message]) */
         })
         .catch((error) => {
             console.error("Error fetching data:", error);
         });
     }, [newQuestion]);
 
+    useEffect(() => {
+        console.log("Loading");
+        
+        if(props.stompClient){
+            console.log("Stomp client is conected");
+            
+            const sub = props.stompClient.subscribe("/topic", (message) => {
+                console.log(message.body);
+                
+                const newResponse = message.body
+                console.log('Received:', newResponse);
+                setResponse(newResponse);
+                setNewQuestion(true);
+                props.setQuestion(newResponse);
+                const message1 = { from: "gpt", content: newResponse };
+                setChat(prevChat => [...prevChat, message1]);
+            });
+
+            return () => {
+                sub.unsubscribe();
+            };
+
+            
+        }else{
+            console.log("Stomp client not connected");
+        }
+    }, [props.stompClient]);
     
     
     function sendAnswer(answer:string){
@@ -104,11 +133,9 @@ export default function ChatWindow(props: Props) {
          })
         .then((data) => {
            let content:Content = JSON.parse(data.content);
-           if(content.correct == true && newQuestion == false) {
-             setNewQuestion(true);
-           }else if(content.correct == true && newQuestion == true){
-            setNewQuestion(false);
-           }
+           if (content.correct) {
+            setNewQuestion(prev => !prev);
+        }
            
             
             const message:Message = {from:"gpt",content:content.feedback}
