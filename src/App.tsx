@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import './App.css'
 import Start from './components/Start'
 import TearSelector from './components/TearSelector'
@@ -17,8 +17,16 @@ interface Subjekt{
   level: number;
 }
 
+interface Teacher{
+  name: string;
+  topic: [];
+  description: String;
+
+}
+
 function App() {
   const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
+  const[teacher, setTeacher] = useState<Teacher>({ topic: [],description: '',name:""});
 
 
   return (
@@ -27,8 +35,8 @@ function App() {
     <Routes>
       <Route path="*" element={<Start></Start>} />
       <Route path="/tear-selector" element={<TearSelector></TearSelector>} />
-      <Route path="/chat" element={/* logedIn && */<Chat subjekt={subjekt} setSubjekt={setSubjekt}></Chat>} />
-      <Route path="/topic-selector" element={/* logedIn && */<TopicSelector subjekt={subjekt} setSubjekt={setSubjekt}></TopicSelector>} />
+      <Route path="/chat" element={/* logedIn && */<Chat subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></Chat>} />
+      <Route path="/topic-selector" element={/* logedIn && */<TopicSelector subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></TopicSelector>} />
       <Route path="/signup" element={<CreateAccount />} />
       <Route path="/login" element={<Login />} />
     </Routes>

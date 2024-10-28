@@ -1,12 +1,19 @@
 import { SetStateAction, useEffect, useState} from 'react'
-import { json } from 'react-router-dom';
 
 interface Props{
     question:string;
     setQuestion:React.Dispatch<React.SetStateAction<string>>;
     subjekt:Subjekt;
+    teacher:Teacher|undefined;
 
 }
+
+interface Teacher{
+    name: string;
+    topic: [];
+    description: String;
+  
+  }
 
 interface Subjekt{
     id: string;
@@ -36,6 +43,9 @@ export default function ChatWindow(props: Props) {
     
     
     useEffect(() => {
+
+        console.log(props.teacher?.name);
+        
         
         fetch("http://localhost:8080/chat/question", {
             method: 'POST',
@@ -45,8 +55,8 @@ export default function ChatWindow(props: Props) {
             },
             body: JSON.stringify({ 
                 teacher: {    
-                    "name": "janne",
-                    "description": "Du är en passionerad lärare som brinner för programmering"
+                    "name": props.teacher?.name,
+                    "description": props.teacher?.description
                 }, 
                 topic: {
                     "id":props.subjekt.id,
@@ -94,7 +104,6 @@ export default function ChatWindow(props: Props) {
          })
         .then((data) => {
            let content:Content = JSON.parse(data.content);
-           console.log(content);
            if(content.correct == true && newQuestion == false) {
              setNewQuestion(true);
            }else if(content.correct == true && newQuestion == true){

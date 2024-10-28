@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 interface Teacher{
   name: string;
-  topic: string;
+  topic: [];
   description: String;
 
 }
@@ -21,12 +21,14 @@ interface Subjekt{
 interface Props{
   subjekt: Subjekt;
   setSubjekt: React.Dispatch<React.SetStateAction<Subjekt>>;
+  teacher: Teacher| undefined;
+  setTeacher: React.Dispatch<React.SetStateAction<Teacher>>;
 }
 
 export default function Chat(props: Props) {
 
   const [question, setQuestion] = useState<string>("");
-  const[teacher, setTeacher] = useState<Teacher>();
+  
 
   return (
    <div className='chat-wrapper'>
@@ -34,7 +36,7 @@ export default function Chat(props: Props) {
     <button>Nytt ämne</button>
     </Link>
     <QuestionList subjekt={props.subjekt} ></QuestionList>
-    <ChatWindow question={question} setQuestion={setQuestion} subjekt={props.subjekt}></ChatWindow>
+    <ChatWindow teacher={props.teacher} question={question} setQuestion={setQuestion} subjekt={props.subjekt}></ChatWindow>
    </div>
   )
 }

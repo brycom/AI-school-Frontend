@@ -26,6 +26,7 @@ export default function QuestionList(props:Props) {
 
   useEffect(() => {
     
+    
     if(props.subjekt){
     fetch("http://localhost:8080/questions/last-ten/"+props.subjekt.id,{
       method: 'GET',
@@ -37,6 +38,7 @@ export default function QuestionList(props:Props) {
     .then(response => response.json())
     .then(data => {
       setQuestions(data);
+      console.log(data);
     })
     .catch(error => {
       console.error("Error fetching data:", error);

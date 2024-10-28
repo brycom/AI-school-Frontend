@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./css/TopicSelector.css"
 import { Link } from 'react-router-dom';
+import Teachers from './topicSubComponents/TopicCard/Teachers';
 
 interface Topic{
     topic: string;
@@ -15,9 +16,18 @@ interface Subjekt{
     level: number;
 }
 
+interface Teacher{
+  name: string;
+  topic: [];
+  description: String;
+
+}
+
 interface Props{
     subjekt: Subjekt| undefined;
     setSubjekt: React.Dispatch<React.SetStateAction<Subjekt>>;
+    teacher: Teacher| undefined;
+    setTeacher: React.Dispatch<React.SetStateAction<Teacher>>;
 }
 
 export default function TopicSelector(props: Props) {
@@ -59,7 +69,8 @@ export default function TopicSelector(props: Props) {
   return (
     <div>
         {topics.map((topic, topicIndex) => (
-            <div key={topicIndex}>
+          <div key={topicIndex}>
+              <Teachers topic={topic.topic} SetTeacher={props.setTeacher}></Teachers>
             <h2 className='topic-headline'>{topic.topic}</h2>
             <ul className='topic-wrapper'>
                 
