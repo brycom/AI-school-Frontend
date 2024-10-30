@@ -63,7 +63,10 @@ export default function TopicSelector(props: Props) {
             setTopics(updatedTopics);
             
           })
-          .catch(error => console.error('Error:', error));
+          .catch(error => {
+            console.error("Error fetching data:", error);
+            alert("Failed to load topics: " + error.message);
+          });
 
         }, []);
       
