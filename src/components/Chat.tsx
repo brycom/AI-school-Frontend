@@ -25,6 +25,7 @@ interface Props{
   teacher: Teacher| undefined;
   setTeacher: React.Dispatch<React.SetStateAction<Teacher>>;
   stompClient:Client| null;
+  url:string;
 }
 
 export default function Chat(props: Props) {
@@ -37,8 +38,8 @@ export default function Chat(props: Props) {
     <Link to={"/topic-selector"}>
     <button>Nytt ämne</button>
     </Link>
-    <QuestionList subjekt={props.subjekt} ></QuestionList>
-    <ChatWindow teacher={props.teacher} question={question} setQuestion={setQuestion} subjekt={props.subjekt} stompClient={props.stompClient}></ChatWindow>
+    <QuestionList url={props.url} subjekt={props.subjekt} ></QuestionList>
+    <ChatWindow url={props.url} teacher={props.teacher} question={question} setQuestion={setQuestion} subjekt={props.subjekt} stompClient={props.stompClient}></ChatWindow>
    </div>
   )
 }

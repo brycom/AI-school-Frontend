@@ -1,5 +1,5 @@
 import { Client } from '@stomp/stompjs';
-import { SetStateAction, useEffect, useState} from 'react'
+import { useEffect, useState} from 'react'
 
 interface Props{
     question:string;
@@ -7,6 +7,7 @@ interface Props{
     subjekt:Subjekt;
     teacher:Teacher|undefined;
     stompClient:Client| null;
+    url:string;
 
 }
 
@@ -41,14 +42,14 @@ export default function ChatWindow(props: Props) {
     const [answer, setAnswer] = useState<string>("");
     const[chat, setChat] = useState<Message[]>([]);
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
-    const [response, setResponse] = useState<any>(null);
+    //const [response, setResponse] = useState<any>(null);
     
     
     
     useEffect(() => {
         
         
-        fetch("http://localhost:8080/chat/question", {
+        fetch(props.url+"/chat/question", {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -67,15 +68,15 @@ export default function ChatWindow(props: Props) {
                 }
             })
         })
-        .then((res) => {
-           /*  return res.json(); */
+/*         .then((res) => {
+            return res.json();
         })
         .then((data) => {
-            /* console.log(data); */
-/*             props.setQuestion(data.content)
+             console.log(data); 
+            props.setQuestion(data.content)
             const message:Message = {from:"gpt",content:data.content}
-            setChat(prevChat => [...prevChat, message]) */
-        })
+            setChat(prevChat => [...prevChat, message]) 
+        }) */
         .catch((error) => {
             console.error("Error fetching data:", error);
         });
@@ -92,7 +93,7 @@ export default function ChatWindow(props: Props) {
                 
                 const newResponse = message.body
                 console.log('Received:', newResponse);
-                setResponse(newResponse);
+                //setResponse(newResponse);
                 setNewQuestion(true);
                 props.setQuestion(newResponse);
                 const message1 = { from: "gpt", content: newResponse };
@@ -113,7 +114,7 @@ export default function ChatWindow(props: Props) {
     function sendAnswer(answer:string){
 
 
-         fetch("http://localhost:8080/chat/answer", {
+         fetch(props.url+"/chat/answer", {
              method: 'POST',
              credentials: 'include',
              headers: {
@@ -160,9 +161,6 @@ export default function ChatWindow(props: Props) {
             
         </ul>
 
-{/*         <p className='chat-window'>
-            {props.question}
-        </p> */}
         <form action="" className='chat-window'  onSubmit={(e)=>{
                     const message:Message = {from:"me",content:answer};
                     setChat(prevChat => [...prevChat, message]);

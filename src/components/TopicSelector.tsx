@@ -28,6 +28,7 @@ interface Props{
     setSubjekt: React.Dispatch<React.SetStateAction<Subjekt>>;
     teacher: Teacher| undefined;
     setTeacher: React.Dispatch<React.SetStateAction<Teacher>>;
+    url:string;
 }
 
 export default function TopicSelector(props: Props) {
@@ -36,7 +37,7 @@ export default function TopicSelector(props: Props) {
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/topic/allTopics",{
+        fetch(props.url+"/topic/allTopics",{
               method: 'GET',
     credentials: 'include'
         })
@@ -70,7 +71,7 @@ export default function TopicSelector(props: Props) {
     <div>
         {topics.map((topic, topicIndex) => (
           <div key={topicIndex}>
-              <Teachers topic={topic.topic} SetTeacher={props.setTeacher}></Teachers>
+              <Teachers url={props.url} topic={topic.topic} SetTeacher={props.setTeacher}></Teachers>
             <h2 className='topic-headline'>{topic.topic}</h2>
             <ul className='topic-wrapper'>
                 

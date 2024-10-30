@@ -2,7 +2,12 @@ import { Link, useNavigate } from "react-router-dom"
 import "./css/CreateAccount.css"
 import { useState } from "react";
 
-export default function CreateAccount() {
+
+interface Props{
+  url:string
+}
+
+export default function CreateAccount(props:Props) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -10,7 +15,7 @@ export default function CreateAccount() {
 
   function createNewAccount(){
 
-    fetch("http://localhost:8080/auth/create-account",
+    fetch(props.url+"/auth/create-account",
       {
         method: 'POST',
         headers: {

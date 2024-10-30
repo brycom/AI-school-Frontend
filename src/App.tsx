@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Start from './components/Start'
 import TearSelector from './components/TearSelector'
@@ -29,11 +29,12 @@ function App() {
   const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
   const[teacher, setTeacher] = useState<Teacher>({ topic: [],description: '',name:""});
   const [stompClient, setStompClient] = useState<Client | null>(null);
+  const url:string = "https://octopus-app-zquiu.ondigitalocean.app" /* "http://localhost:8080" */
 
   useEffect(() => {
     console.log("Trying to connect!");
 
-    const socket = /* new SockJS("http://localhost:8080/connect") */new WebSocket('ws://localhost:8080/connect');
+    const socket = /* new SockJS("http://localhost:8080/connect") */new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app:8080/connect'/* "ws://localhost:8080/connect" */);
 
     const client = new Client({
       webSocketFactory: () => socket as WebSocket,
@@ -63,12 +64,12 @@ function App() {
 
     <BrowserRouter>
     <Routes>
-      <Route path="*" element={<Start></Start>} />
-      <Route path="/tear-selector" element={<TearSelector></TearSelector>} />
-      <Route path="/chat" element={/* logedIn && */<Chat stompClient={stompClient} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></Chat>} />
-      <Route path="/topic-selector" element={/* logedIn && */<TopicSelector subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></TopicSelector>} />
-      <Route path="/signup" element={<CreateAccount />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<Start ></Start>} />
+      <Route path="/tear-selector" element={<TearSelector url={url}></TearSelector>} />
+      <Route path="/chat" element={/* logedIn && */<Chat url={url} stompClient={stompClient} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></Chat>} />
+      <Route path="/topic-selector" element={/* logedIn && */<TopicSelector url={url} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></TopicSelector>} />
+      <Route path="/signup" element={<CreateAccount url={url} />} />
+      <Route path="/login" element={<Login url={url} />} />
     </Routes>
     
     

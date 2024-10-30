@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Select, { OptionsOrGroups, GroupBase, SingleValue } from "react-select";
+import Select, { SingleValue } from "react-select";
 
 
 interface Teacher{
@@ -12,6 +12,7 @@ interface Teacher{
 interface Props{
     topic: string
     SetTeacher: React.Dispatch<React.SetStateAction<Teacher>>
+    url: string;
 }
 
 interface Option {
@@ -30,7 +31,7 @@ export default function Teachers(props:Props) {
 
     useEffect(() => {
 
-        fetch("http://localhost:8080/admin/teacher/teacherByTopic/"+props.topic,{
+        fetch(props.url+"/admin/teacher/teacherByTopic/"+props.topic,{
             method: 'GET',
             credentials: 'include', 
             headers: {
@@ -51,8 +52,10 @@ export default function Teachers(props:Props) {
                         description: teacher.description,
                 }));
 
-                setTeachers(teachersForTeachers)
+                setTeachers(teachersForTeachers);
               setOptions(teachersForList);
+              props.SetTeacher(teachersForTeachers[0]);
+              setSelectedOption(teachersForList[0]);
         })
         
     }, []);
@@ -63,7 +66,6 @@ export default function Teachers(props:Props) {
         teachers.forEach(teacher =>{
                 if(option != null && teacher.name === option.value){
                     props.SetTeacher(teacher);
-                    console.log("Här ska det vara rät?????   "+teacher.name);
                     
                 }
         })

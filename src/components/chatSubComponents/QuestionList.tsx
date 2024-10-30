@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Subjekt{
   id: string;
@@ -18,6 +18,7 @@ interface Question{
 
 interface Props{
   subjekt:Subjekt;
+  url: string;
 }
 
 export default function QuestionList(props:Props) {
@@ -28,7 +29,7 @@ export default function QuestionList(props:Props) {
     
     
     if(props.subjekt){
-    fetch("http://localhost:8080/questions/last-ten/"+props.subjekt.id,{
+    fetch(props.url+"/questions/last-ten/"+props.subjekt.id,{
       method: 'GET',
       credentials: 'include', 
       headers: {
