@@ -16,31 +16,33 @@ export default function Login(props:Props) {
 
 
 
-  function Login(username:string, password:string){
-
-    fetch(props.url+"/auth/login",
-      {
+  function Login(username: string, password: string) {
+    fetch(props.url + "/auth/login", {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body:JSON.stringify({
-          "username": username,
-          "password": password,
-        }),  
-        credentials: 'include'
-      })
-     .then(response => response.json())
-     .then(data => {
-      localStorage.setItem("JWT",data.token);
-      
-    
-         navigate("/topic-selector");
-     })
-     .catch(error =>{ console.error('Error:', error)
-       alert("Invalid credentials")
-     });
-  }
+        body: JSON.stringify({
+            username: username,
+            password: password,
+        }),
+        credentials: 'include',
+    })
+    .then(response => {
+        if (!response.ok) { 
+            throw new Error('Network response was not ok ' + response.status);
+        }
+        return response.json();
+    })
+    .then(() => {
+        navigate("/topic-selector"); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Invalid credentials or server error"); 
+    });
+}
+
 
   return (
     <div>
