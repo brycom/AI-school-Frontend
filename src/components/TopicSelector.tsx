@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./css/TopicSelector.css"
 import { Link } from 'react-router-dom';
+import Teachers from './topicSubComponents/TopicCard/Teachers';
 
 interface Topic{
     topic: string;
@@ -15,9 +16,19 @@ interface Subjekt{
     level: number;
 }
 
+interface Teacher{
+  name: string;
+  topic: [];
+  description: String;
+
+}
+
 interface Props{
     subjekt: Subjekt| undefined;
     setSubjekt: React.Dispatch<React.SetStateAction<Subjekt>>;
+    teacher: Teacher| undefined;
+    setTeacher: React.Dispatch<React.SetStateAction<Teacher>>;
+    url:string;
 }
 
 export default function TopicSelector(props: Props) {
@@ -26,7 +37,7 @@ export default function TopicSelector(props: Props) {
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/topic/allTopics",{
+        fetch(props.url+"/topic/allTopics",{
               method: 'GET',
     credentials: 'include'
         })
@@ -39,19 +50,18 @@ export default function TopicSelector(props: Props) {
       
               if (existingTopic) {
                 existingTopic.subjekts.push(incomingTopic);
-                console.log("added subject to topic: " + incomingTopic.topic);
               } else {
                 let newTopic: Topic = {
                   topic: incomingTopic.topic,
                   subjekts: [incomingTopic]
                 };
                 updatedTopics.push(newTopic);
-                console.log("new topic: " + incomingTopic.topic);
+
               }
             });
       
             setTopics(updatedTopics);
-            console.log("Updated topics:", updatedTopics);
+            
           })
           .catch(error => console.error('Error:', error));
 
@@ -59,16 +69,16 @@ export default function TopicSelector(props: Props) {
       
   return (
     <div>
-        {topics.map((topic, index) => (
-            <div>
+        {topics.map((topic, topicIndex) => (
+          <div key={topicIndex}>
+              <Teachers url={props.url} topic={topic.topic} SetTeacher={props.setTeacher}></Teachers>
             <h2 className='topic-headline'>{topic.topic}</h2>
-            <ul className='topic-wrapper' key={index}>
+            <ul className='topic-wrapper'>
                 
                 {topic.subjekts.map((subj, subIndex) => (
-                  <Link to={"/chat"}>
-                    <li className='topic-tile' key={subIndex} onClick={()=>props.setSubjekt(subj)}>
+                  <Link to={"/chat"} key={subIndex}>
+                    <li className='topic-tile'  onClick={()=>props.setSubjekt(subj)}>
                         <h4 className='tile-headline'>{subj.title}</h4>
-                       {/*  <p className='description'>{subj.description}</p> */}
                         <p className='level'>Svårighetsgrad: {subj.level} av 10</p>
                     </li></Link>))}
 

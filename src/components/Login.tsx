@@ -3,9 +3,13 @@ import { useState } from "react";
 import "./css/Login.css"
 import {Link, useNavigate } from "react-router-dom";
 
+interface Props{
+  url: string;
+}
 
 
-export default function Login() {
+
+export default function Login(props:Props) {
   const [username, setUsername]= useState<string>("");
   const [password, setPassword]= useState<string>("");
   const navigate = useNavigate();
@@ -14,7 +18,7 @@ export default function Login() {
 
   function Login(username:string, password:string){
 
-    fetch("http://localhost:8080/auth/login",
+    fetch(props.url+"/auth/login",
       {
         method: 'POST',
         headers: {

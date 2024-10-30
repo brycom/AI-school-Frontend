@@ -1,18 +1,62 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
-export default function QuestionList() {
+interface Subjekt{
+  id: string;
+  topic: string;
+  title: string;
+  description: string;
+  level: number;
+}
+
+interface Question{
+  id: string;
+  topicId: string;
+  status: boolean;
+  userId: string;
+  question: string;
+}
+
+interface Props{
+  subjekt:Subjekt;
+  url: string;
+}
+
+export default function QuestionList(props:Props) {
+   const [questions, setQuestions] = useState<Question[]>([]);
+
+
+  useEffect(() => {
+    
+    
+    if(props.subjekt){
+    fetch(props.url+"/questions/last-ten/"+props.subjekt.id,{
+      method: 'GET',
+      credentials: 'include', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      setQuestions(data);
+      console.log(data);
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+    }
+    )
+  }
+  }, [props.subjekt]);
   return (
     <div className='questions' id='questions-wrapper'>
           <ul className=' questions'>
-            <li className=' questions'>fråga 1</li>
-            <li className=' questions'>fråga 2</li>
-            <li className=' questions'>fråga 3</li>
-            <li className=' questions'>fråga 4</li>
-            <li className=' questions'>fråga 5</li>
-            <li className=' questions'>fråga 6</li>
-            <li className=' questions'>fråga 7</li>
-            <li className=' questions'>fråga 8</li>
-            <li className=' questions'>fråga 9</li>
+            {questions.map((question, index) => (
+              <li className='questions' key={index}>
+                <p>{question.question}</p>
+                {question.status === true && <p>!!</p>}
+                </li>
+            ))}
+
         </ul>
     </div>
   )
