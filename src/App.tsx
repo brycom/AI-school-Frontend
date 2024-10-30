@@ -29,12 +29,12 @@ function App() {
   const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
   const[teacher, setTeacher] = useState<Teacher>({ topic: [],description: '',name:""});
   const [stompClient, setStompClient] = useState<Client | null>(null);
-  const url:string = "https://octopus-app-zquiu.ondigitalocean.app" /* "http://localhost:8080" */
+  const url:string = /* "https://octopus-app-zquiu.ondigitalocean.app" */ "http://localhost:8080"
 
   useEffect(() => {
     console.log("Trying to connect!");
 
-    const socket = /* new SockJS("http://localhost:8080/connect") */new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app:8080/connect'/* "ws://localhost:8080/connect" */);
+    const socket = /* new SockJS("http://localhost:8080/connect") */new WebSocket(/* 'wss://octopus-app-zquiu.ondigitalocean.app/connect' */"ws://localhost:8080/connect");
 
     const client = new Client({
       webSocketFactory: () => socket as WebSocket,
