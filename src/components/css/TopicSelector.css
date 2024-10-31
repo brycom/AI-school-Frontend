@@ -39,6 +39,14 @@
 .level{
     margin-bottom: 10px;
 }
+.level-input{
+    width: 40px;
+    border: none;
+    border-radius: 10px;
+    padding: 3px;
+
+    background-color: rgba(0, 0, 0, 0.212);
+}
 ::-webkit-scrollbar{
     width: 10px;
     border-radius: 10px;

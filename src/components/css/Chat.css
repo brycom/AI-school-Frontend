@@ -9,13 +9,23 @@
     flex: 1;
     padding: 10px;
     border-radius: 20px;
-    margin-right: 20px ;
-}
-
-.chat-window{
-
     
+
 }
+.questions li{
+    height: 50px;
+    width: 200px;
+    overflow-y: scroll;
+    border: 1px solid rgba(0, 0, 0, 0.301);
+    margin-bottom: 5px;
+}
+.questions h3{
+    width: 200px;
+}
+#questions-wrapper{
+    padding: 0;
+}
+
 
 #chat-window-wrapper{
     border-radius: 20px;

@@ -80,9 +80,10 @@ export default function TopicSelector(props: Props) {
                 
                 {topic.subjekts.map((subj, subIndex) => (
                   <Link to={"/chat"} key={subIndex}>
-                    <li className='topic-tile'  onClick={()=>props.setSubjekt(subj)}>
-                        <h4 className='tile-headline'>{subj.title}</h4>
-                        <p className='level'>Svårighetsgrad: {subj.level} av 10</p>
+                    <li className='topic-tile'  >
+                        <h4 className='tile-headline' onClick={()=>props.setSubjekt(subj)}>{subj.title}</h4>
+                        <p className='level'>Svårighetsgrad: <input className='level-input' type="number" defaultValue={subj.level} /* defaultValue={1} */
+                        onClick={(e)=>{e.preventDefault()}} onChange={(e)=>subj.level = Number(e.target.value)} /> av 10</p>
                     </li></Link>))}
 
             </ul>
