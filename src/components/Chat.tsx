@@ -63,10 +63,13 @@ export default function Chat(props: Props) {
 
   return (
     <>
+    <div className='buttons'>
     <Logout url={props.url}></Logout>
     <Link to={"/topic-selector"}>
     <button>Nytt ämne</button>
     </Link>
+
+    </div>
    <div className='chat-wrapper'>
     <QuestionList url={props.url} subjekt={props.subjekt} ></QuestionList>
     <ChatWindow url={props.url} teacher={props.teacher} question={question} setQuestion={setQuestion} setSubjekt={props.setSubjekt} subjekt={props.subjekt} stompClient={stompClient}></ChatWindow>

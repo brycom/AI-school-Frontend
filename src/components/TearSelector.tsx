@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import"./css/TearSelector.css";
 import TearCard from './tearSubComponents/TearCard'
+import Logout from "./Logout";
+import { Link } from "react-router-dom";
 
 interface Tear {
   id: string;
@@ -35,6 +37,14 @@ export default function TearSelector(props:Props) {
 
 
   return (
+
+    <>
+          <div className='buttons'>
+    <Logout url={props.url}></Logout>
+    <Link to={"/topic-selector"}>
+    <button>Nytt ämne</button>
+    </Link>
+      </div>
     <div className='tearcard-wrapper'>
         {
           tears?.map((tear,tearsIndex)=>{
@@ -47,5 +57,6 @@ export default function TearSelector(props:Props) {
 
       
     </div>
+    </>
   )
 }

@@ -52,3 +52,12 @@
     border-radius: 10px;
     background-color: rgb(48, 49, 49);
 }
+
+.buttons{
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
+}
+.buttons button{
+    margin-right: 10px;
+}
