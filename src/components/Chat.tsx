@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChatWindow from './chatSubComponents/ChatWindow'
 import QuestionList from './chatSubComponents/QuestionList'
 import "./css/Chat.css"
@@ -25,13 +25,40 @@ interface Props{
   setSubjekt: React.Dispatch<React.SetStateAction<Subjekt>>;
   teacher: Teacher| undefined;
   setTeacher: React.Dispatch<React.SetStateAction<Teacher>>;
-  stompClient:Client| null;
   url:string;
 }
 
 export default function Chat(props: Props) {
 
   const [question, setQuestion] = useState<string>("");
+  const [stompClient, setStompClient] = useState<Client | null>(null);
+
+  useEffect(() => {
+    console.log("Trying to connect!");
+
+    const socket = new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app/connect');
+
+    const client = new Client({
+      webSocketFactory: () => socket as WebSocket,
+      reconnectDelay: 5000,
+      onConnect: () => {
+        setStompClient(client);
+        console.log("Connection established");
+      },
+      onDisconnect: () => {
+        console.log("Disconnected from websocket");
+      },
+      onWebSocketError: (error) => {
+        console.error("WebSocket Error: ", error);
+      },
+    });
+
+    client.activate();
+
+    return () => {
+      client.deactivate();
+    };
+  }, []);
   
 
   return (
@@ -42,7 +69,7 @@ export default function Chat(props: Props) {
     </Link>
    <div className='chat-wrapper'>
     <QuestionList url={props.url} subjekt={props.subjekt} ></QuestionList>
-    <ChatWindow url={props.url} teacher={props.teacher} question={question} setQuestion={setQuestion} subjekt={props.subjekt} stompClient={props.stompClient}></ChatWindow>
+    <ChatWindow url={props.url} teacher={props.teacher} question={question} setQuestion={setQuestion} setSubjekt={props.setSubjekt} subjekt={props.subjekt} stompClient={stompClient}></ChatWindow>
    </div>
     
     </>

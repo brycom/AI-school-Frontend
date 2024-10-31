@@ -5,6 +5,7 @@ interface Props{
     question:string;
     setQuestion:React.Dispatch<React.SetStateAction<string>>;
     subjekt:Subjekt;
+    setSubjekt:React.Dispatch<React.SetStateAction<Subjekt>>;
     teacher:Teacher|undefined;
     stompClient:Client| null;
     url:string;
@@ -43,13 +44,7 @@ export default function ChatWindow(props: Props) {
     const[chat, setChat] = useState<Message[]>([]);
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
 
-    //const [response, setResponse] = useState<any>(null);
-    
-    
-    
-    useEffect(() => {
-        
-        
+    function getQuestion(teacher:Teacher|undefined,subjekt:Subjekt){
         fetch(props.url+"/chat/question", {
             method: 'POST',
             credentials: 'include',
@@ -58,30 +53,53 @@ export default function ChatWindow(props: Props) {
             },
             body: JSON.stringify({ 
                 teacher: {    
-                    "name": props.teacher?.name,
-                    "description": props.teacher?.description
+                    "name": teacher?.name,
+                    "description":teacher?.description
                 }, 
                 topic: {
-                    "id":props.subjekt.id,
-                    "topic": props.subjekt.title,
-                    "description": props.subjekt.description,
-                    "level": props.subjekt.level
+                    "id":subjekt.id,
+                    "topic": subjekt.title,
+                    "description": subjekt.description,
+                    "level": subjekt.level
                 }
             })
         })
         .catch((error) => {
             console.error("Error fetching data:", error);
         });
+
+    }
+    
+    
+    useEffect(() => {
+        console.log(props.subjekt.id);
+        
+        if(props.subjekt.id === ""){
+            console.log("Subjekt not found, loading from local storage");
+            const subString:string| null = localStorage.getItem("subjekt")
+            if(subString !== null){
+                let subjekt:Subjekt = JSON.parse(subString);
+                props.setSubjekt(subjekt);
+                getQuestion(props.teacher, subjekt);
+                console.log("i if" + subjekt.title);
+                
+            }
+        }else{
+            getQuestion(props.teacher,props.subjekt);
+            console.log("i else" + props.subjekt.title);
+        }
+        
+        
+
     }, [newQuestion]);
 
     useEffect(() => {
-        console.log("Loading");
         
         if(props.stompClient){
             console.log("Stomp client is conected");
             
             const sub = props.stompClient.subscribe("/topic", (message) => {
-                console.log(message.body);
+                //console.log(message.body);
                 
                 const newResponse = message.body;
                // console.log('Received:', newResponse);
