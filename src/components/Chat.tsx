@@ -4,6 +4,7 @@ import QuestionList from './chatSubComponents/QuestionList'
 import "./css/Chat.css"
 import { Link } from 'react-router-dom';
 import { Client } from '@stomp/stompjs';
+import Logout from './Logout';
 
 interface Teacher{
   name: string;
@@ -35,6 +36,7 @@ export default function Chat(props: Props) {
 
   return (
     <>
+    <Logout url={props.url}></Logout>
     <Link to={"/topic-selector"}>
     <button>Nytt ämne</button>
     </Link>
