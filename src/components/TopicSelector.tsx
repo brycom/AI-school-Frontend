@@ -37,6 +37,7 @@ export default function TopicSelector(props: Props) {
 
 
 
+
     useEffect(() => {
         fetch(props.url+"/topic/allTopics",{
               method: 'GET',
@@ -87,7 +88,10 @@ export default function TopicSelector(props: Props) {
                 {topic.subjekts.map((subj, subIndex) => (
                   <Link to={"/chat"} key={subIndex}>
                     <li className='topic-tile'  >
-                        <h4 className='tile-headline' onClick={()=>props.setSubjekt(subj)}>{subj.title}</h4>
+                        <h4 className='tile-headline' onClick={()=>{
+                          props.setSubjekt(subj)
+                          localStorage.setItem('subjekt',JSON.stringify(subj))
+                          }}>{subj.title}</h4>
                         <p className='level'>Svårighetsgrad: <input className='level-input' type="number" defaultValue={subj.level} /* defaultValue={1} */
                         onClick={(e)=>{e.preventDefault()}} onChange={(e)=>subj.level = Number(e.target.value)} /> av 10</p>
                     </li></Link>))}

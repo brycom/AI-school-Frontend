@@ -26,10 +26,16 @@ export default function QuestionList(props:Props) {
 
 
   useEffect(() => {
+
+    const subString:string|null = localStorage.getItem("subjekt")
+    let subjekt:Subjekt|null = null;
+        if(subString){
+          subjekt = JSON.parse(subString);
+        }
     
     
-    if(props.subjekt){
-    fetch(props.url+"/questions/last-ten/"+props.subjekt.id,{
+    if(subjekt){
+    fetch(props.url+"/questions/last-ten/"+subjekt.id,{
       method: 'GET',
       credentials: 'include', 
       headers: {
