@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Start from './components/Start'
 import TearSelector from './components/TearSelector'
@@ -29,15 +29,15 @@ interface Teacher{
 function App() {
   const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
   const[teacher, setTeacher] = useState<Teacher>({ topic: [],description: '',name:""});
-  const [stompClient/* , setStompClient */] = useState<Client | null>(null);
+  const [stompClient, setStompClient] = useState<Client | null>(null);
   const url:string = "https://octopus-app-zquiu.ondigitalocean.app" /* "http://localhost:8080" */
 
-/*   useEffect(() => {
-    console.log("Trying to connect!"); */
+  useEffect(() => {
+    console.log("Trying to connect!");
 
-    /* const socket = new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app/connect'  */  /*  "ws://localhost:8080/connect" );*/
+    const socket = new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app/connect'   /*  "ws://localhost:8080/connect"*/ );
 
- /*    const client = new Client({
+    const client = new Client({
       webSocketFactory: () => socket as WebSocket,
       reconnectDelay: 5000,
       onConnect: () => {
@@ -58,11 +58,13 @@ function App() {
       client.deactivate();
     };
   }, []);
- */
+
 
 
   return (
 
+    <>
+      <h1>Hallå i stugan!!!!</h1>
     <BrowserRouter>
     <Routes>
       <Route path="*" element={<Start ></Start>} />
@@ -76,6 +78,9 @@ function App() {
     
     
     </BrowserRouter>
+    
+    </>
+
 
  
   )
