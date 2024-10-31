@@ -39,7 +39,7 @@ export default function TopicSelector(props: Props) {
     useEffect(() => {
         fetch(props.url+"/topic/allTopics",{
               method: 'GET',
-    credentials: 'include'
+            credentials: 'include'
         })
           .then(response => response.json())
           .then(data => {
@@ -72,6 +72,10 @@ export default function TopicSelector(props: Props) {
       
   return (
     <div>
+
+      <Link to={"/account"}>
+        <button>Välj abunumang</button>
+        </Link>
         {topics.map((topic, topicIndex) => (
           <div key={topicIndex}>
               <Teachers url={props.url} topic={topic.topic} SetTeacher={props.setTeacher}></Teachers>
