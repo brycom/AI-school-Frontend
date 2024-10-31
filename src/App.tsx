@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Start from './components/Start'
 import TearSelector from './components/TearSelector'
@@ -29,7 +29,7 @@ interface Teacher{
 function App() {
   const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
   const[teacher, setTeacher] = useState<Teacher>({ topic: [],description: '',name:""});
-  const [stompClient, setStompClient] = useState<Client | null>(null);
+  const [stompClient/* , setStompClient */] = useState<Client | null>(null);
   const url:string = "https://octopus-app-zquiu.ondigitalocean.app" /* "http://localhost:8080" */
 
 /*   useEffect(() => {
