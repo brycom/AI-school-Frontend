@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CreateAccount from './components/CreateAccount'
 import Login from './components/Login'
 import { Client } from '@stomp/stompjs'
+import Account from './components/Account'
 
 
 interface Subjekt{
@@ -31,12 +32,12 @@ function App() {
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const url:string = "https://octopus-app-zquiu.ondigitalocean.app" /* "http://localhost:8080" */
 
-  useEffect(() => {
-    console.log("Trying to connect!");
+/*   useEffect(() => {
+    console.log("Trying to connect!"); */
 
-    const socket = /* new SockJS("http://localhost:8080/connect") */new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app/connect'/* "ws://localhost:8080/connect" */);
+    /* const socket = new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app/connect'  */  /*  "ws://localhost:8080/connect" );*/
 
-    const client = new Client({
+ /*    const client = new Client({
       webSocketFactory: () => socket as WebSocket,
       reconnectDelay: 5000,
       onConnect: () => {
@@ -57,7 +58,7 @@ function App() {
       client.deactivate();
     };
   }, []);
-
+ */
 
 
   return (
@@ -66,10 +67,11 @@ function App() {
     <Routes>
       <Route path="*" element={<Start ></Start>} />
       <Route path="/tear-selector" element={<TearSelector url={url}></TearSelector>} />
-      <Route path="/chat" element={/* logedIn && */<Chat url={url} stompClient={stompClient} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></Chat>} />
-      <Route path="/topic-selector" element={/* logedIn && */<TopicSelector url={url} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></TopicSelector>} />
+      <Route path="/chat" element={<Chat url={url} stompClient={stompClient} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></Chat>} />
+      <Route path="/topic-selector" element={<TopicSelector url={url} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></TopicSelector>} />
       <Route path="/signup" element={<CreateAccount url={url} />} />
       <Route path="/login" element={<Login url={url} />} />
+      <Route path="/account" element={<Account></Account>} />
     </Routes>
     
     

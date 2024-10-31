@@ -34,7 +34,9 @@ export default function Login(props:Props) {
         }
         return response.json();
     })
-    .then(() => {
+    .then((data) => {
+      console.log(data);
+      
         navigate("/topic-selector"); 
     })
     .catch(error => {

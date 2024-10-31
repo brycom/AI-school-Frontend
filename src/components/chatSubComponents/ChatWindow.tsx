@@ -42,6 +42,7 @@ export default function ChatWindow(props: Props) {
     const [answer, setAnswer] = useState<string>("");
     const[chat, setChat] = useState<Message[]>([]);
     const [newQuestion, setNewQuestion] = useState<boolean>(false);
+
     //const [response, setResponse] = useState<any>(null);
     
     
@@ -68,15 +69,6 @@ export default function ChatWindow(props: Props) {
                 }
             })
         })
-/*         .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-             console.log(data); 
-            props.setQuestion(data.content)
-            const message:Message = {from:"gpt",content:data.content}
-            setChat(prevChat => [...prevChat, message]) 
-        }) */
         .catch((error) => {
             console.error("Error fetching data:", error);
         });
@@ -91,14 +83,16 @@ export default function ChatWindow(props: Props) {
             const sub = props.stompClient.subscribe("/topic", (message) => {
                 console.log(message.body);
                 
-                const newResponse = message.body
-                console.log('Received:', newResponse);
+                const newResponse = message.body;
+               // console.log('Received:', newResponse);
                 //setResponse(newResponse);
-                setNewQuestion(true);
+                //setNewQuestion(true);
                 props.setQuestion(newResponse);
                 const message1 = { from: "gpt", content: newResponse };
                 setChat(prevChat => [...prevChat, message1]);
             });
+                
+
 
             return () => {
                 sub.unsubscribe();
@@ -108,11 +102,10 @@ export default function ChatWindow(props: Props) {
         }else{
             console.log("Stomp client not connected");
         }
-    }, [props.stompClient]);
+    }, [props.stompClient,newQuestion]);
     
     
     function sendAnswer(answer:string){
-
 
          fetch(props.url+"/chat/answer", {
              method: 'POST',

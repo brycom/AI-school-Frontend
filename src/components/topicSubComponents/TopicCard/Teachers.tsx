@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Select, { SingleValue } from "react-select";
+import "./Teachers.css"
 
 
 interface Teacher{
@@ -73,7 +74,8 @@ export default function Teachers(props:Props) {
 
   
   return (
-    <div>
+    <div className='teacher'>
+      <h3>Lärare:</h3>
         <Select
         options={options}
         value={selectedOption}
@@ -84,9 +86,7 @@ export default function Teachers(props:Props) {
         onMenuOpen={() => {}}
         onMenuClose={() => {}}
       />
-       <p>Selected: {selectedOption?.label}</p>
-
-      
+     
     </div>
   )
 }

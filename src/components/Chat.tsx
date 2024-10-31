@@ -34,12 +34,15 @@ export default function Chat(props: Props) {
   
 
   return (
-   <div className='chat-wrapper'>
+    <>
     <Link to={"/topic-selector"}>
     <button>Nytt ämne</button>
     </Link>
+   <div className='chat-wrapper'>
     <QuestionList url={props.url} subjekt={props.subjekt} ></QuestionList>
     <ChatWindow url={props.url} teacher={props.teacher} question={question} setQuestion={setQuestion} subjekt={props.subjekt} stompClient={props.stompClient}></ChatWindow>
    </div>
+    
+    </>
   )
 }

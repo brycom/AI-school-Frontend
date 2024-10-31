@@ -39,7 +39,7 @@ export default function QuestionList(props:Props) {
     .then(response => response.json())
     .then(data => {
       setQuestions(data);
-      console.log(data);
+     // console.log(data);
     })
     .catch(error => {
       console.error("Error fetching data:", error);
@@ -49,6 +49,7 @@ export default function QuestionList(props:Props) {
   }, [props.subjekt]);
   return (
     <div className='questions' id='questions-wrapper'>
+       <h3>Dina senaste {questions.length} Frågor om {props.subjekt.topic}</h3>
           <ul className=' questions'>
             {questions.map((question, index) => (
               <li className='questions' key={index}>
