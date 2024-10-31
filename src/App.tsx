@@ -47,7 +47,7 @@ function App() {
       <Route path="/topic-selector" element={<TopicSelector url={url} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></TopicSelector>} />
       <Route path="/signup" element={<CreateAccount url={url} />} />
       <Route path="/login" element={<Login url={url} />} />
-      <Route path="/account" element={<Account></Account>} />
+      <Route path="/account" element={<Account url = {url}></Account>} />
     </Routes>
     
     
