@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./css/TopicSelector.css"
 import { Link } from 'react-router-dom';
 import Teachers from './topicSubComponents/TopicCard/Teachers';
+import Logout from './Logout';
 
 interface Topic{
     topic: string;
@@ -73,6 +74,7 @@ export default function TopicSelector(props: Props) {
   return (
     <div>
 
+      <Logout url={props.url}></Logout>
       <Link to={"/account"}>
         <button>Välj abunumang</button>
         </Link>

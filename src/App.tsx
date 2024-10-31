@@ -30,12 +30,13 @@ function App() {
   const [subjekt, setSubjekt] = useState<Subjekt>({id: '', topic: '', title: "", description: "", level:0});
   const[teacher, setTeacher] = useState<Teacher>({ topic: [],description: '',name:""});
   const [stompClient, setStompClient] = useState<Client | null>(null);
-  const url:string = "https://octopus-app-zquiu.ondigitalocean.app" /* "http://localhost:8080" */
+  const url:string = "https://octopus-app-zquiu.ondigitalocean.app" /* "http://localhost:8080" */;
+
 
   useEffect(() => {
     console.log("Trying to connect!");
 
-    const socket = new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app/connect'   /*  "ws://localhost:8080/connect"*/ );
+    const socket = new WebSocket('wss://octopus-app-zquiu.ondigitalocean.app/connect');
 
     const client = new Client({
       webSocketFactory: () => socket as WebSocket,
@@ -67,7 +68,7 @@ function App() {
       <h1>Hallå i stugan!!!!</h1>
     <BrowserRouter>
     <Routes>
-      <Route path="*" element={<Start ></Start>} />
+      <Route path="*" element={<Start url={url} ></Start>} />
       <Route path="/tear-selector" element={<TearSelector url={url}></TearSelector>} />
       <Route path="/chat" element={<Chat url={url} stompClient={stompClient} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></Chat>} />
       <Route path="/topic-selector" element={<TopicSelector url={url} subjekt={subjekt} setSubjekt={setSubjekt} teacher={teacher} setTeacher={setTeacher}></TopicSelector>} />
