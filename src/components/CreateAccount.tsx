@@ -11,6 +11,7 @@ export default function CreateAccount(props:Props) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const[name,setNamn] = useState<string>("");
   const navigate = useNavigate();
 
   function createNewAccount(){
@@ -25,6 +26,7 @@ export default function CreateAccount(props:Props) {
           "username": username,
           "password": password,
           "email": email,
+          "name": name,
         }),  
         credentials: 'include'
       }).then(response => response.json())
@@ -55,6 +57,7 @@ export default function CreateAccount(props:Props) {
         <input className="new-account-input" type="text" placeholder="Username" onChange={(e)=>setUsername(e.target.value)}/>
         <input className="new-account-input" type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} />
         <input className="new-account-input" type="email" placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
+        <input className="new-account-input" type="text" placeholder="Namn" onChange={(e)=>setNamn(e.target.value)}/>
         <input className="new-account-input" id="submit-btn" type="submit" value="Sign Up" />
       </form>
       <p>Already have an account? <Link to={"/login"}> Sign in</Link></p>

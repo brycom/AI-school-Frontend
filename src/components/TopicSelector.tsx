@@ -74,11 +74,13 @@ export default function TopicSelector(props: Props) {
       
   return (
     <div>
-
+      <div className='buttons'>
       <Logout url={props.url}></Logout>
       <Link to={"/account"}>
-        <button>Välj abunumang</button>
+        <button>Profil</button>
         </Link>
+
+      </div>
         {topics.map((topic, topicIndex) => (
           <div key={topicIndex}>
               <Teachers url={props.url} topic={topic.topic} SetTeacher={props.setTeacher}></Teachers>

@@ -1,6 +1,8 @@
 
 import { useEffect, useState } from 'react';
 import { Link} from 'react-router-dom'
+import Logout from './Logout';
+import "./css/Account.css"
 
 
 interface Props{
@@ -35,12 +37,21 @@ export default function Account(props:Props) {
 
 
   return (
-    <div>
 
-       {/*  <h1>Account</h1> */}
+    <>
+    
+                <div className='buttons'>
+    <Logout url={props.url}></Logout>
+    <Link to={"/topic-selector"}>
+    <button>Plugga</button>
+    </Link>
         <Link to="/tear-selector">
         <button onClick={()=>{  }}>Välj ett abunumang</button>
         </Link>
+      </div>
+    <div className='the-div'>
+
+       {/*  <h1>Account</h1> */}
        {profile && <div>
         <h2>{profile.username}</h2>
         <h5>Namn: {profile.name}</h5>
@@ -53,5 +64,6 @@ export default function Account(props:Props) {
   
       
     </div>
+    </>
   )
 }
